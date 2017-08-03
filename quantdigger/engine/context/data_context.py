@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+import six
 
 from quantdigger.engine.series import SeriesBase, NumberSeries, DateTimeSeries
 from quantdigger.technicals.base import TechnicalBase
 from quantdigger.util import elogger as logger
-
-from quantdigger.datastruct import (
-    Bar
-)
+from quantdigger.datastruct import Bar
 
 
 class DataContext(object):
@@ -88,7 +86,7 @@ class DataContext(object):
         else:
             for tec in technicals:
                 if tec.is_multiple:
-                    for s in tec.series.values():
+                    for s in six.itervalues(tec.series):
                         s.update_curbar(self._curbar)
                 else:
                     for s in tec.series:

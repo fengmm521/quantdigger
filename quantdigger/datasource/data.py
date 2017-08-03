@@ -6,7 +6,7 @@
 # @version 0.3
 # @date 2016-05-26
 
-from dsutil import get_setting_datasource
+from .dsutil import get_setting_datasource
 from quantdigger.datastruct import PContract, Contract
 
 
