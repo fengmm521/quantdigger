@@ -59,7 +59,10 @@ class Shell(BackendInterface, UIInterface):
 
     def get_technicals(self):
         """ 获取系统的所有指标。 """
-        return
+        ret = self._backend.sync_call("get_technicals")
+        print "****"
+        print ret
+        print "****"
 
     def get_strategies(self):
         return 'hello' 

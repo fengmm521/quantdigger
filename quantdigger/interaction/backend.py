@@ -41,6 +41,7 @@ class Backend(BackendInterface):
         server.register('get_all_contracts', self.get_all_contracts)
         server.register('get_all_pcontracts', self.get_all_pcontracts)
         server.register('get_pcontract', self.get_pcontract)
+        server.register('get_technicals', self.get_technicals)
         server.register('get_strategies', self.get_strategies)
         server.register('run_strategy', self.run_strategy)
         server.register('run_technical', self.run_technical)
@@ -53,14 +54,9 @@ class Backend(BackendInterface):
         def _mk_contract(code, exchage):
             s = '%s.%s' % (code, exchage)
             return Contract(s)
-        # 模拟接口
         df = self._dm.get_contracts()
         contracts = [str(_mk_contract(row['code'], row['exchange'])) for _, row in df.iterrows()]
         return serialize_all_contracts(contracts)
-        #data = ['CC.SHFE-1.MINUTE', 'BB.SHFE-1.MINUTE']
-        #pcons =  [PContract.from_string(d) for d in data]
-        #contracts =  [pcon.contract for pcon in pcons]
-        #return serialize_all_contracts(contracts)
 
     def get_all_pcontracts(self):
         # 模拟接口
@@ -81,7 +77,7 @@ class Backend(BackendInterface):
 
     def get_technicals(self):
         """ 获取系统的所有指标。 """
-        from quantdigger.technicals import get_techs
+        from quantdigger.technicals.techutil import get_techs
         return get_techs()
 
     def get_strategies(self):
